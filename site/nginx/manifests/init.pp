@@ -13,7 +13,7 @@ $nginx_conf='/etc/nginx/conf.d'
   ensure => present,
   }
 
-  file { $web_dir:
+  file { [$web_dir,$nginx_conf]:
   ensure => directory,
   }
 
@@ -27,10 +27,6 @@ $nginx_conf='/etc/nginx/conf.d'
   source => 'puppet:///modules/nginx/nginx.conf',
   require => Package['nginx'],
   notify => Service['nginx'],
-  }
-
-  file { $nginx_conf:
-  ensure => directory
   }
 
   file { "${nginx_conf}/default.conf":
