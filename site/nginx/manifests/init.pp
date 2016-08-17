@@ -30,7 +30,7 @@ $nginx_conf='/etc/nginx/conf.d'
   }
 
   file { $nginx_conf:
-  ensure => director$nginx_conf
+  ensure => directory
   }
 
   file { "${nginx_conf}/default.conf":
