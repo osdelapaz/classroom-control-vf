@@ -46,7 +46,7 @@ if $::virtual != 'physical' {
   notify { "This is a virtual machine running on ${virt}": }
   }
   else {
-  notify { "This is a physical machine" }
+  notify { 'This is a physical machine': }
   }
   
 }
