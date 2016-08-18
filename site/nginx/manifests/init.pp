@@ -49,6 +49,10 @@ group => $group,
 mode => '0644',
 }
 
+file {[$webroot, $log_dir, $conf_dir]:
+  ensure => directory,
+}
+
 file { "${webroot}/index.html":
   ensure => file,
   source => 'puppet:///modules/nginx/index.html',
