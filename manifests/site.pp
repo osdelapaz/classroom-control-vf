@@ -41,4 +41,13 @@ ini_setting { 'random ordering':
 node default {
   # This is where you can declare classes for all nodes.
 
+if $::virtual != 'physical' {
+  $virt = captialize($::virtual)
+  notify { "This is a virtual machine running on ${virt}": }
+  }
+  else {
+  notify { "This is a physical machine" }
+  }
+  
+}
 }
