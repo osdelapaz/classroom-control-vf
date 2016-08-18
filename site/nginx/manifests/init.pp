@@ -41,7 +41,7 @@ case $::osfamily {
     fail("Service is not available in ${::osfamily}")
   }
 
-} xcase
+}
 
 File {
 owner => $owner,
