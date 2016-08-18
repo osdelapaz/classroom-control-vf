@@ -1,44 +1,73 @@
 class nginx {
+case $::osfamily {
+
+  'redhat':{
+  $user = 'nginx'
+  $webroot = '/var/www/'
+  $log_dir = '/var/log/nginx/'
+  $conf_dir = '/etc/nginx/'
+  $owner = 'root'
+  $group = 'root'
+  package { 'nginx':
+    ensure => present,
+    }
+  }
+
+  'debian':{
+  $user = 'www-data'
+  $webroot = '/var/www/'
+  $log_dir = '/var/log/nginx/'
+  $conf_dir = '/etc/nginx/'
+  $owner = 'root'
+  $group = 'root'
+  package { 'nginx':
+    ensure => present,
+    }
+  }
+
+  'windows':{
+  $user = 'nobody'
+  $webroot = 'C:/ProgramData/nginx/html/'
+  $log_dir = 'C:/ProgramData/nginx/logs/'
+  $conf_dir = 'C:/ProgramData/nginx/'
+  $owner = 'Administrator'
+  $group = 'Administrators'
+  package { 'nginx-service':
+    ensure => present,
+    }
+  }
+  
+  default :{
+    fail("Service is not available in ${::osfamily}")
+  }
+
+} xcase
 
 File {
-  owner => 'root',
-  group => 'root',
-  mode => '0664',
+owner => $owner,
+group => $group,
+mode => '0644',
 }
 
-$web_dir='/var/www'
-$nginx_conf='/etc/nginx/conf.d'
-
-  package { 'nginx':
-  ensure => present,
-  }
-
-  file { [$web_dir,$nginx_conf]:
-  ensure => directory,
-  }
-
-  file { "${web_dir}/index.html":
+file { "${webroot}/index.html":
   ensure => file,
   source => 'puppet:///modules/nginx/index.html',
-  }
 
-  file { '/etc/nginx/nginx.conf':
+file { "${conf_dir}/nginx.conf":
   ensure => file,
-  source => 'puppet:///modules/nginx/nginx.conf',
-  require => Package['nginx'],
+  content => template('nginx/nginx.conf.erb'),
   notify => Service['nginx'],
-  }
+}
 
-  file { "${nginx_conf}/default.conf":
+file { "${conf_dir}/conf.d/default.conf":
   ensure => file,
-  source => 'puppet:///modules/nginx/default.conf',
-  require => Package['nginx'],
+  content => template('nginx/default.conf.erb'),
   notify => Service['nginx'],
-  }
+}
 
-  service { 'nginx':
+service { 'nginx':
   ensure => running,
   enable => true,
-  }
-
 }
+
+} 
