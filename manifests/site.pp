@@ -50,4 +50,3 @@ if $::virtual != 'physical' {
   }
   
 }
-}
