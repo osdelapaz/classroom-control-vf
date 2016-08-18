@@ -1,4 +1,4 @@
-define users::managed_user {
+define users::managed_user (
 ) {
   user { $title:
   ensure => present,
