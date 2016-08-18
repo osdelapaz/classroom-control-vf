@@ -3,9 +3,9 @@ case $::osfamily {
 
   'redhat':{
   $user = 'nginx'
-  $webroot = '/var/www/'
-  $log_dir = '/var/log/nginx/'
-  $conf_dir = '/etc/nginx/'
+  $webroot = '/var/www'
+  $log_dir = '/var/log/nginx'
+  $conf_dir = '/etc/nginx'
   $owner = 'root'
   $group = 'root'
   package { 'nginx':
@@ -15,9 +15,9 @@ case $::osfamily {
 
   'debian':{
   $user = 'www-data'
-  $webroot = '/var/www/'
-  $log_dir = '/var/log/nginx/'
-  $conf_dir = '/etc/nginx/'
+  $webroot = '/var/www'
+  $log_dir = '/var/log/nginx'
+  $conf_dir = '/etc/nginx'
   $owner = 'root'
   $group = 'root'
   package { 'nginx':
@@ -27,9 +27,9 @@ case $::osfamily {
 
   'windows':{
   $user = 'nobody'
-  $webroot = 'C:/ProgramData/nginx/html/'
-  $log_dir = 'C:/ProgramData/nginx/logs/'
-  $conf_dir = 'C:/ProgramData/nginx/'
+  $webroot = 'C:/ProgramData/nginx/html'
+  $log_dir = 'C:/ProgramData/nginx/logs'
+  $conf_dir = 'C:/ProgramData/nginx'
   $owner = 'Administrator'
   $group = 'Administrators'
   package { 'nginx-service':
@@ -52,6 +52,7 @@ mode => '0644',
 file { "${webroot}/index.html":
   ensure => file,
   source => 'puppet:///modules/nginx/index.html',
+}
 
 file { "${conf_dir}/nginx.conf":
   ensure => file,
