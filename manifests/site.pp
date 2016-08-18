@@ -43,7 +43,7 @@ node default {
 
 if $::virtual != 'physical' {
   $virt = capitalize($::virtual)
-  notify { "This is a virtual machine running on ${virt} and Operating System is ${::operatingsystem}": }
+  notify { "This is a virtual machine running on ${virt} and Operating System is ${::operatingsystem} Verion ${::os.release.major} with ${::memory.system.total} of Memory": }
   }
   else {
   notify { 'This is a physical machine': }
