@@ -49,5 +49,5 @@ if $::virtual != 'physical' {
   notify { 'This is a physical machine': }
   }
   
-  notify { "hiera( 'message' )": }
+  notify { " ${hiera( 'message' )}": }
 }
