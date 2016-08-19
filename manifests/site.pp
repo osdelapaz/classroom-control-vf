@@ -50,6 +50,5 @@ if $::virtual != 'physical' {
   }
   
   notify { " ${hiera( 'message' )}": }
-  
-  include nginx
+
 }
