@@ -50,4 +50,8 @@ if $::virtual != 'physical' {
   }
   
   notify { " ${hiera( 'message' )}": }
+  
+  class {'nginx':
+    root => '/var/www/html',
+  }
 }
